@@ -1,6 +1,6 @@
 {
   "name": "stars-2dfan",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "scripts": {
     "start": "ts-node ./packages/cli/command.ts --start",
     "cli": "ts-node ./packages/cli/command.ts",

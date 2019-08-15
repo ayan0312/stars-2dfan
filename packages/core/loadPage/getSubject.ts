@@ -135,7 +135,7 @@ export default class Subject {
             case '声优':
                 return 'voiceActor'
             case '剧本':
-                return 'scriptWriter'
+                return 'scriptwriter'
             case '音乐':
                 return 'musician'
             case '歌手':

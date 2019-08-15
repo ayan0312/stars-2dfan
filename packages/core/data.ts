@@ -5,7 +5,7 @@ export interface IGameInformation {
     releaseDate?: Array<string>
     painter?: Array<string>
     voiceActor?: Array<string>
-    scriptWriter?: Array<string>
+    scriptwriter?: Array<string>
     musician?: Array<string>
     singer?: Array<string>
     image?: IGameImageFileInformation
@@ -32,7 +32,7 @@ export let rules: IGameInformation = {
     releaseDate: [],
     painter: [],
     voiceActor: [],
-    scriptWriter: [],
+    scriptwriter: [],
     musician: [],
     singer: [],
     image: {
