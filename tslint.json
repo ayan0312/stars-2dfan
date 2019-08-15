@@ -1,0 +1,16 @@
+{
+  "extends": ["tslint-config-airbnb", "tslint-config-prettier"],
+  "defaultSeverity": "error",
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "rules": {
+    "no-debugger": true,
+    "no-console": false,
+    "no-implicit-dependencies": ["optional", ["src"]],
+    "prefer-array-literal": [true, { "allow-type-parameters": true }],
+    "variable-name": [true, "allow-pascal-case"],
+    "strict-boolean-expressions": false,
+    "import-name": false,
+    "prettier": true,
+    "type-literal-delimiter": false
+  }
+}
