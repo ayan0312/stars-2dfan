@@ -1,7 +1,7 @@
 import superagent from 'superagent'
 
 import Subject from './getSubject'
-import { IGameInformation, rules } from '../data'
+import { IGameInformation } from '../data'
 import { downloadImage } from '../download/image'
 
 import Config from '../../config.json'
@@ -18,11 +18,11 @@ export function getHTML(URL: string, Cookie: string): superagent.SuperAgentReque
     return superagent.get(URL).set('Cookie', Cookie)
 }
 
-export function getGameInfomation($: CheerioStatic, URL: string): Promise<IGameInformation> {
+export function getGameInfomation($: CheerioStatic, URL: string, rule: IGameInformation): Promise<IGameInformation> {
     return new Promise(async (resolve: (value: IGameInformation) => void, reject) => {
         const subject = new Subject($)
 
-        let group: IGameInformation = merge(rules, subject.getGroup())
+        let group: IGameInformation = merge(rule, subject.getGroup())
         group = merge(group, {
             name: subject.getGameName(),
             type: subject.getGameTypes(),

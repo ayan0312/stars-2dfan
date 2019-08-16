@@ -11,6 +11,7 @@ export interface IGameInformation {
     image?: IGameImageFileInformation
     type: Array<string>
     web2dfan: I2DFan
+    remark?:string
     timestamp: string
 }
 
@@ -45,5 +46,6 @@ export let rules: IGameInformation = {
         topicID: '',
         imageURL: '',
     },
+    remark:'',
     timestamp: '0',
 }

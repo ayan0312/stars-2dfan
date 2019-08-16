@@ -37,14 +37,8 @@ export default class Galgame {
             .toArray()
     }
 
-    public find(id: any): Promise<Array<IGameInformation> | null> {
-        let findID: ObjectID
-        if (typeof id !== 'object') {
-            findID = new ObjectID(id)
-        } else {
-            findID = id
-        }
-        return this.db.collection(this.dbname).findOne({ _id: findID })
+    public find(where: object): Promise<Array<IGameInformation> | null> {
+        return this.db.collection(this.dbname).find(where).toArray()
     }
 
     public create(data: IGameInformation): Promise<InsertOneWriteOpResult> {

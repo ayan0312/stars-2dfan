@@ -1,22 +1,196 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="js/am.js"></script>
-    <title>Galgame-Register</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>GUI Contrls</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<meta name="viewport" content="width=device-width" />
+
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
+	<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+
+	<!--  Modal  -->
+	<link href="assets/css/jquery.remodal.css" rel="stylesheet">
+	<!-- CSS Files -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="assets/css/material-bootstrap-wizard.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div id="app"></div>
-    <script src='js/register.js'></script>
-    <script>
-        am.resolve(Register)
-        am.module(['js/main'], function () { })
+	<div class="image-container set-full-height">
+		<div class="remodal-bg">
+			<br><br>
 
-    </script>
+			<div class="remodal" data-remodal-id="modal">
+				<h1>Remodal</h1>
+				<p>
+					Flat, responsive, lightweight, fast, easy customizable modal window plugin
+					with declarative state notation and hash tracking.
+				</p>
+				<p>
+					Minified version size: ~4kb
+				</p>
+				<br>
+				<a class="remodal-cancel" href="#">取消</a>
+				<a class="remodal-confirm" href="#">提交至数据库</a>
+			</div>
+		</div>
+		<!--   Big container   -->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8 col-sm-offset-2">
+					<!--      Wizard container        -->
+					<div class="wizard-container">
+						<div class="card wizard-card" data-color="red" id="wizard">
+							<form action="" method="">
+								<!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
+
+								<div class="wizard-header">
+									<h3 class="wizard-title">
+										Stars 2DFan
+									</h3>
+									<h5>填写信息收藏2DFan数据</h5>
+								</div>
+								<div class="wizard-navigation">
+									<ul>
+										<li><a href="#details" data-toggle="tab">填写信息</a></li>
+									</ul>
+								</div>
+
+								<div class="tab-content">
+									<div class="tab-pane" id="details">
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="input-group">
+													<span class="input-group-addon">
+													</span>
+													<div class="form-group label-floating">
+														<label class="control-label">2DFan
+															URL（www.2dfan.com/subjects/*）</label>
+														<input id="web2dfan" name="name" type="text"
+															class="form-control">
+													</div>
+												</div>
+
+												<div class="input-group">
+													<span class="input-group-addon">
+													</span>
+													<div id="pathDiv" class="form-group label-floating">
+														<label class="control-label">图片或Txt保存本地地址（f:/2dfan/）</label>
+														<input id="localPath" name="name2" type="text"
+															class="form-control">
+													</div>
+												</div>
+												<div class="col-sm-6 col-sm-offset-1">
+													<div class="form-group">
+														<img id="searchImage" src="" width="200">
+													</div>
+												</div>
+												<a href="#modal" class='btn btn-fill btn-danger btn-wd'>确认收藏信息</a>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group label-floating">
+													<label class="control-label">保存类型</label>
+													<select id="saveType" class="form-control">
+														<option selected value="mongodb"> MongoDB </option>
+														<option disabled value="Txt"> Txt </option>
+														<option disabled value="JSON"> JSON </option>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="col-sm-6 col-sm-offset-1">
+													<div class="form-group">
+														<label>备注信息</label>
+														<textarea id="remarks" class="form-control" placeholder=""
+															rows="6"></textarea>
+													</div>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<label class="control-label">提示</label>
+														<p class="description">备注信息会首先显示在gui的外部卡片上</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="wizard-footer">
+									<div class="pull-right">
+										<input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next'
+											value='下一个' />
+										<input type='button' id="submit"
+											class='btn btn-finish btn-fill btn-danger btn-wd' name='finish'
+											value='查询' />
+									</div>
+									<div class="pull-left">
+										<input type='button' class='btn btn-previous btn-fill btn-default btn-wd'
+											name='previous' value='上一个' />
+
+										<div class="footer-checkbox">
+											<div class="col-sm-12">
+												<div class="checkbox">
+													<label>
+														<input id="isSaveTopic" checked type="checkbox"
+															name="optionsCheckboxes">
+													</label>
+													<strong>是否在收藏同时收藏topic</strong>（不选填该项可以通过2DFan URL收藏）
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</form>
+						</div>
+					</div> <!-- wizard container -->
+				</div>
+			</div> <!-- row -->
+		</div> <!--  big container -->
+	</div>
+
 </body>
+<!--   Core JS Files   -->
+
+<script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/js/jquery.bootstrap.js" type="text/javascript"></script>
+
+<!--  Plugin for the Wizard -->
+<script src="assets/js/material-bootstrap-wizard.js"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script src="assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/jquery.remodal.js"></script>
+<script src="request.js"></script>
+<script>
+	$(document).on('open', '.remodal', function () {
+		console.log('open');
+	});
+
+	$(document).on('opened', '.remodal', function () {
+		console.log('opened');
+	});
+
+	$(document).on('close', '.remodal', function () {
+		console.log('close');
+	});
+
+	$(document).on('closed', '.remodal', function () {
+		console.log('closed');
+	});
+
+	$(document).on('confirm', '.remodal', function () {
+		console.log('confirm');
+	});
+
+	$(document).on('cancel', '.remodal', function () {
+		console.log('cancel');
+	});
+</script>
 
 </html>

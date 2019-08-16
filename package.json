@@ -4,6 +4,7 @@
   "scripts": {
     "start": "ts-node ./packages/cli/command.ts --start",
     "cli": "ts-node ./packages/cli/command.ts",
+    "server": "ts-node ./packages/server/app.ts",
     "build": "cross-env NODE_ENV=production tsc",
     "dev": "cross-env NODE_ENV=development ts-node ./packages/main.ts",
     "test": "mocha --require ts-node/register --watch-extensions ts,tsx 'test/**/*.ts'",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/cheerio": "^0.22.13",
+    "@types/cors": "^2.8.5",
     "@types/express": "^4.17.0",
     "@types/inquirer": "^6.5.0",
     "@types/mocha": "^5.2.7",
@@ -63,6 +65,7 @@
     "chalk": "^2.4.2",
     "cheerio": "^1.0.0-rc.3",
     "commander": "^3.0.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "inquirer": "^6.5.0",
     "mongodb": "^3.3.0-beta2",
