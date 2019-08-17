@@ -1,29 +1,34 @@
 import inquirer from 'inquirer'
-import { logStats } from '../../shared/logs'
-import { loadPage } from '../../core/loadPage'
-import { IGameInformation } from '../../core/data'
-import Galgame from '../../core/models/galgame'
+import { logStats, tip } from '../../utils/logs'
+import { IGameInformation, ITotalInformations } from '../../core/data'
+import loadPage from '../../core/loadPage'
+import { Mongodb } from '../../core/models/mongodb'
 
-let galgameData: IGameInformation
+let info: ITotalInformations
 
 const url: inquirer.QuestionCollection = [
     {
         type: 'input',
         name: 'url',
         message: '输入2DFan网站地址',
-        validate(URL: any) {
-            return new Promise((resolve, reject) => {
-                loadPage(URL, (data: IGameInformation) => {
-                    logStats({
-                        data,
-                        name: 'Data',
-                        tip: 'Process',
-                        type: 'success',
-                    })
-                    galgameData = data
-                    resolve(true)
+        async validate(URL: any): Promise<boolean> {
+            try {
+                const data: ITotalInformations = await loadPage(URL, '')
+
+                logStats({
+                    data: data.subject,
+                    name: 'Data',
+                    tip: 'Process',
+                    type: 'success',
                 })
-            })
+
+                info = data
+            } catch (err) {
+                tip(err, 'error')
+                return false
+            }
+
+            return true
         },
     },
     {
@@ -36,26 +41,19 @@ const url: inquirer.QuestionCollection = [
     },
 ]
 
-function saveToDatabase(data: IGameInformation) {
-    if (galgameData === undefined) return false
-    Galgame.connect().then((db: any) => {
-        const galgame: Galgame = new Galgame(db, 'subject')
-        galgame.create(data).then(result => {})
-    })
+async function insertAll(data: ITotalInformations): Promise<void> {
+    if (info === undefined) return
+    const { subject, topic } = data
+    const subjects: Mongodb = await Mongodb.connection('subjects')
+    subjects.insert(subject)
+    if (!topic) return
+    const topics: Mongodb = await Mongodb.connection('topics')
+    topics.insert(topic)
 }
 
-export default function getURLAnswer() {
-    return new Promise((resolve, reject) => {
-        inquirer
-            .prompt(url)
-            .then(answers => {
-                if (answers.filter) {
-                    saveToDatabase(galgameData)
-                }
-                resolve(answers)
-            })
-            .catch(error => {
-                reject(error)
-            })
-    })
+export default async function getURLAnswer() {
+    const answers: inquirer.Answers = await inquirer.prompt(url)
+    if (answers.filter) {
+        return await insertAll(info)
+    }
 }

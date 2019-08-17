@@ -1,6 +1,6 @@
 import fs from 'fs'
 import request from 'request'
-import { tip } from '../../shared/logs'
+import { tip } from '../../utils/logs'
 
 export interface IDownload {
     url: string
@@ -26,9 +26,8 @@ export function download(data: IDownload): Promise<IDownloadedInformation> {
         readStream.pipe(writeStream)
 
         readStream.on('end', () => {
-            console.log('\n')
-            tip('Download ↓', 'success')
-            tip(`The file has been downloaded:${filename}`, 'success')
+            tip(`${filename} ↓`, 'success')
+            tip('The file has been downloaded', 'success')
         })
 
         readStream.on('error', err => {
@@ -36,7 +35,7 @@ export function download(data: IDownload): Promise<IDownloadedInformation> {
         })
 
         writeStream.on('finish', () => {
-            tip(`The file has been written:${filename}`, 'success')
+            tip('The file has been written', 'success')
             writeStream.end()
             resolve({
                 filename,
@@ -48,8 +47,7 @@ export function download(data: IDownload): Promise<IDownloadedInformation> {
 
 export function mkdirSync(dirname: string): boolean {
     if (dirname === '') {
-        tip('No such file or directory', 'error')
-        return false
+        throw `No such file or directory:${dirname}`
     }
     if (fs.existsSync(dirname)) {
         return true

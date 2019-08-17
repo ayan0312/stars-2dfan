@@ -1,12 +1,5 @@
 import chalk, { Chalk } from 'chalk'
 
-function* id() {
-    let id = 0
-    while (true) {
-        yield (id += 1)
-    }
-}
-
 function typeColor(type: string = 'success') {
     let chalkType: Chalk = chalk.green
     let char: string = '√'

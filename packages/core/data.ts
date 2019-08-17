@@ -1,21 +1,24 @@
+import { ObjectId } from 'mongodb'
+
 export interface IGameInformation {
+    _id: string
     name: string
-    anotherName?: string
-    brand?: Array<string>
-    releaseDate?: Array<string>
-    painter?: Array<string>
-    voiceActor?: Array<string>
-    scriptwriter?: Array<string>
-    musician?: Array<string>
-    singer?: Array<string>
-    image?: IGameImageFileInformation
+    anotherName: string
+    brand: Array<string>
+    releaseDate: Array<string>
+    painter: Array<string>
+    voiceActor: Array<string>
+    scriptwriter: Array<string>
+    musician: Array<string>
+    singer: Array<string>
+    image: IImageFileInformation
     type: Array<string>
     web2dfan: I2DFan
-    remark?:string
+    remark: string
     timestamp: string
 }
 
-export interface IGameImageFileInformation {
+export interface IImageFileInformation {
     path: string
     filename: string
 }
@@ -27,6 +30,7 @@ export interface I2DFan {
 }
 
 export let rules: IGameInformation = {
+    _id: '',
     name: '',
     anotherName: '',
     brand: [],
@@ -46,6 +50,23 @@ export let rules: IGameInformation = {
         topicID: '',
         imageURL: '',
     },
-    remark:'',
+    remark: '',
     timestamp: '0',
+}
+
+export interface ITotalInformations {
+    subject: IGameInformation
+    topic?: ITopicArticles
+}
+
+export interface ITopicArticles {
+    _id: string
+    subject_id: string
+    html?: Array<ITopicArticle>
+}
+
+export interface ITopicArticle {
+    page: string
+    images?: Array<IImageFileInformation>
+    content: Array<string>
 }

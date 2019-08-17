@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { verifyURL } from '../core/shared/verify'
+import { verifyURL } from '../packages/utils'
 
 describe('verify url', () => {
     it('should return ture when the value is URL', () => {

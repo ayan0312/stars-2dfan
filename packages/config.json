@@ -1,1 +1,15 @@
-{"Cookie":"","images":{"path":"g:/open/temp_images/"},"download":{"filters":["https://img.2dfan.com/package.png"]}}
+{
+    "Cookie": "",
+    "images": {
+        "path": "g:/open/temp_images/"
+    },
+    "download": {
+        "filters": [
+            "https://img.2dfan.com/package.png"
+        ]
+    },
+    "mongodb":{
+        "connection":"stars-2dfan",
+        "localhost":"mongodb://localhost:27017/"
+    }
+}

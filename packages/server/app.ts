@@ -22,27 +22,29 @@ app.get('/stars', cors(), (req, res) => {
         data: Config,
     })
 
-
-    loadPage(url, (data: IGameInformation) => {
-        res.json(data)
-    }, { remark })
+    loadPage(
+        url,
+        (data: IGameInformation) => {
+            res.json(data)
+        },
+        { remark },
+    )
 })
 
-app.get('/path',(req,res)=>{
-    
+app.get('/path', (req, res) => {
     res.json({
-        path:Config.images.path
+        path: Config.images.path,
     })
 })
 
 app.get('/galgame', async (req, res, next) => {
     if (!req.query.data) {
         res.json({
-            error_code: '404'
+            error_code: '404',
         })
         return
     }
-    let findType: object = JSON.parse(Base64.decode(req.query.data))
+    const findType: object = JSON.parse(Base64.decode(req.query.data))
 
     const db: any = await Galgame.connect()
     const galgame: Galgame = new Galgame(db, 'subject')
@@ -50,14 +52,13 @@ app.get('/galgame', async (req, res, next) => {
         const data = await galgame.find(findType)
         res.json({
             data,
-            error_code: '200'
+            error_code: '200',
         })
     } catch (err) {
         res.json({
-            error_code: '300'
+            error_code: '300',
         })
     }
-
 })
 app.listen(3000, () => {
     console.log('listening on port 3000!')

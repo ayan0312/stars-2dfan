@@ -1,6 +1,17 @@
 import fs from 'fs'
 import path from 'path'
 
+export interface IReadJSON {
+    name: string
+    filepath: string
+}
+
+export interface IWriteJSON {
+    name: string
+    filepath: string
+    data: object
+}
+
 export function getImageType(URL: string): string | false {
     const types: Array<string> = ['png', 'jpg', 'gif', 'bmp', 'webp']
     let type: string = ''
@@ -16,17 +27,6 @@ export function getImageType(URL: string): string | false {
     })
     if (prevTypeIndex === 0) return false
     return type
-}
-
-export interface IReadJSON {
-    name: string
-    filepath: string
-}
-
-export interface IWriteJSON {
-    name: string
-    filepath: string
-    data: object
 }
 
 export function readJSON(data: IReadJSON) {

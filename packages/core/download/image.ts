@@ -1,7 +1,7 @@
 import { download, mkdirSync, IDownloadedInformation } from './index'
-import { getImageType } from '../../shared/file'
+import { getImageType } from '../../utils/file'
+import { tip } from '../../utils/logs'
 import { getMd5Filename } from '../../shared/crypt'
-import { tip } from '../../shared/logs'
 
 export interface IDownloadImageTypes {
     name: string
@@ -10,50 +10,59 @@ export interface IDownloadImageTypes {
     timestamp: string
 }
 
-export function downloadImage(data: IDownloadImageTypes): Promise<IDownloadedInformation> {
-    return new Promise(async (resolve, reject) => {
-        if (data.url === 'filter') {
-            resolve()
-            return
-        }
-        if (data.url === '') {
-            tip(`No such file:${data.url}`, 'warn')
-            resolve()
-            return
-        }
+export async function downloadImage(
+    data: IDownloadImageTypes,
+): Promise<IDownloadedInformation | undefined> {
+    if (data.url === 'filter') {
+        return
+    }
 
-        const fileType = getImageType(data.url)
-        if (!fileType) {
-            reject(`This URL is typed error of filename:${data.url}`)
-            return
-        }
+    if (data.url === '') {
+        tip(`No such image of file:${data.url}`, 'warn')
+        return
+    }
 
-        const filename = getMd5Filename({
-            name: data.name,
-            timestamp: data.timestamp,
+    try {
+        mkdirSync(data.path)
+    } catch (error) {
+        throw error
+    }
+
+    const fileType = getImageType(data.url)
+    if (!fileType) {
+        throw `The image is errored of filename:${data.url}`
+    }
+
+    const filename = getMd5Filename({
+        name: data.name,
+        timestamp: data.timestamp,
+    })
+
+    try {
+        const downloadInformation: IDownloadedInformation = await download({
+            filename: `${filename}.${fileType}`,
+            url: data.url,
+            path: data.path,
         })
 
-        if (mkdirSync(data.path)) {
-            try {
-                const downloadInformation: IDownloadedInformation = await download({
-                    filename: `${filename}.${fileType}`,
-                    url: data.url,
-                    path: data.path,
-                })
-
-                resolve(downloadInformation)
-            } catch (err) {
-                tip(err, 'error')
-                resolve()
-                return
-            }
-        }
-    })
+        return downloadInformation
+    } catch (err) {
+        tip(err, 'error')
+        return
+    }
 }
 
-export function downloadImages(URL: Array<IDownloadImageTypes>): void {
-    if (URL.length === 0) return
-    URL.forEach((value: IDownloadImageTypes) => {
-        downloadImage(value)
-    })
+export async function downloadImages(
+    URL: Array<IDownloadImageTypes>,
+): Promise<Array<IDownloadedInformation | undefined>> {
+    if (URL.length === 0) return []
+    let infos: Array<IDownloadedInformation | undefined> = []
+    let info: IDownloadedInformation | undefined
+    for (let i = 0; i < URL.length; i += 1) {
+        info = await downloadImage(URL[i])
+        console.log(info)
+        infos.push(info)
+    }
+
+    return infos
 }

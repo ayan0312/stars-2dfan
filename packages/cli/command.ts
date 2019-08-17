@@ -6,8 +6,7 @@ import getCookieAnswer from './questions/cookie'
 
 import Config from '../config.json'
 import paths from '../utils/paths'
-import { writeJSON } from '../shared/file'
-import { downloadImage } from '../core/download/image'
+import { writeJSON } from '../utils/file'
 
 program
     .version('1.0.0')
@@ -69,14 +68,8 @@ function setPath() {
     })
 }
 
-function startURL() {
-    getURLAnswer()
-        .then(answers => {
-            if (answers) startURL()
-        })
-        .catch(error => {
-            console.log(error)
-        })
+async function startURL() {
+    const answers = await getURLAnswer()
 }
 
 async function startAnswer() {
@@ -111,7 +104,7 @@ async function startAnswer() {
 
 function runner() {
     if (program.start) {
-        startAnswer()
+        startURL()
     } else {
         Promise.all([setCookie(), download(), setPath()]).catch(error => {
             console.log(error)
