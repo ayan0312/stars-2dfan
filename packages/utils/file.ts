@@ -55,3 +55,14 @@ export function writeJSON(writeData: IWriteJSON) {
         )
     })
 }
+
+export function mkdirSync(dirname: string): boolean {
+    if (dirname === '') {
+        throw `No such file or directory:${dirname}`
+    }
+    if (fs.existsSync(dirname)) {
+        return true
+    }
+    fs.mkdirSync(dirname)
+    return true
+}

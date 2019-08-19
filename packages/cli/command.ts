@@ -69,7 +69,8 @@ function setPath() {
 }
 
 async function startURL() {
-    const answers = await getURLAnswer()
+    await getURLAnswer()
+    startURL()
 }
 
 async function startAnswer() {

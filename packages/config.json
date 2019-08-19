@@ -1,12 +1,15 @@
 {
-    "Cookie": "",
+    "Cookie": "Hm_lvt_79251201618e9337c1169fef9b3e4786=1565959304,1566016039,1566105447,1566192909; _project_hgc_session=ZFpkVmZBbk5WM29EWVFZbXIvajRKbUdxa0RJWHNLdWs1QWVldDNIdy9XcnN4TzdtT055YnNiVzE2UzVwZVNyNFp0QlhqTlZnNlN6S1RHemp5RUtmNCt2VElDcWk4dHM0WFpBNml0Vy9DOTl1SVhEem45RkNiTVJTL2JJUEhMb0dNRXM0N0c2SmhDQUd0QmJRdTRCZTJHNGNEZTNtT3pxZE1GQ0svcGNoKzRDd1ZkYWc1L01UY2J2Y213Y3I3NmNOLS1zZkJiUEtJbTE3UXJwNk0wYkRWQkdBPT0%3D--c8a3157c4297dc82471f1c80feee57f9aa832d35; Hm_lpvt_79251201618e9337c1169fef9b3e4786=1566228149",
     "images": {
-        "path": "g:/open/temp_images/"
+        "path": "g:/galgame/stars-2dfan.images/"
     },
     "download": {
         "filters": [
             "https://img.2dfan.com/package.png"
         ]
+    },
+    "server":{
+        "imagesPath":"/assets/images/"
     },
     "mongodb":{
         "connection":"stars-2dfan",

@@ -1,12 +1,34 @@
 import Config from '../config.json'
-import { tip } from './logs'
+import { log } from '../logs'
 
-const URLReg: RegExp = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/
+function* id() {
+    let id = 0
+    while (true) {
+        if (id >= 256) id = 0
+        yield (id += 1)
+    }
+}
+
+const getId = id()
+export function cId() {
+    const timestamp: string = new Date().getTime().toString()
+    const iteratorNumber: number = getId.next().value
+    return base64.encode(`${timestamp}&${iteratorNumber}`)
+}
 
 export function verifyURL(URL: string, only: string = ''): boolean {
-    if (!URLReg.test(URL)) return false
     if (URL.indexOf(only) === -1) return false
     return true
+}
+
+export namespace base64 {
+    export function encode(data: string) {
+        return Buffer.from(data, 'binary').toString('base64')
+    }
+
+    export function decode(base64str: string) {
+        return Buffer.from(base64str, 'base64').toString()
+    }
 }
 
 export function filter2DFanImageURL(URL: string): string | false {
@@ -28,7 +50,7 @@ export function filter2DFanImageURL(URL: string): string | false {
 
 export function verify2DFan(URL: string) {
     if (!verifyURL(URL, '2dfan.com')) {
-        tip(`This url is typed error`, 'error')
+        log('error', `This url is typed error:${URL}`)
         return false
     }
     return true
@@ -45,37 +67,19 @@ export function merge(target: any, obj: any) {
     return deep
 }
 
-export function format(formatString: string) {
-    let fmt = formatString
-    const date = new Date()
+export function format(formatString: string, timestamp: number) {
+    let fmt: string = formatString
+    const date = new Date(timestamp)
     const o: any = {
+        'y+': date.getFullYear(),
         'M+': date.getMonth() + 1,
         'd+': date.getDate(),
         'h+': date.getHours() % 12 === 0 ? 12 : date.getHours() % 12,
         'H+': date.getHours(),
-        'm+': date.getMinutes(),
-        's+': date.getSeconds(),
+        'm+': date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes(),
+        's+': date.getSeconds() < 10 ? `0${date.getSeconds()}` : date.getSeconds(),
         'q+': Math.floor((date.getMonth() + 3) / 3),
         S: date.getMilliseconds(),
-    }
-    const week: any = {
-        '0': '/u65e5',
-        '1': '/u4e00',
-        '2': '/u4e8c',
-        '3': '/u4e09',
-        '4': '/u56db',
-        '5': '/u4e94',
-        '6': '/u516d',
-    }
-    if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(RegExp.$1, `${date.getFullYear()}`.substr(4 - RegExp.$1.length))
-    }
-    if (/(E+)/.test(fmt)) {
-        fmt = fmt.replace(
-            RegExp.$1,
-            (RegExp.$1.length > 1 ? (RegExp.$1.length > 2 ? '/u661f/u671f' : '/u5468') : '') +
-                week[`${date.getDay()}`],
-        )
     }
     for (const k in o) {
         if (new RegExp(`(${k})`).test(fmt)) {
@@ -123,5 +127,5 @@ export function getURLRouter(URL: string, near?: string): string {
 export async function delay(delayMinMS: number = 200, delayMaxMS: number = 500): Promise<void> {
     const num = delayMaxMS - delayMinMS
     const ms = Math.round(Math.random() * num) + delayMinMS
-    await setTimeout(() => {}, ms)
+    await setTimeout(() => { }, ms)
 }

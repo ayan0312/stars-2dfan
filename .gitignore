@@ -3,3 +3,4 @@ error_log
 node_modules
 example
 test_download
+yarn-error.log

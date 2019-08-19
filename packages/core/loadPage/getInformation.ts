@@ -1,14 +1,87 @@
 import { IGameInformation, I2DFan } from '../data'
 import { IDownloadedInformation } from '../download'
 import { downloadImage } from '../download/image'
-import Config from '../../config.json'
-import { getURLRouter, merge, filter2DFanImageURL } from '../../utils'
-import { tip } from '../../utils/logs'
+import {
+    getURLRouter,
+    merge,
+    filter2DFanImageURL,
+    verifyURL,
+    delay,
+    cId,
+    format,
+} from '../../utils'
+import { log } from '../../logs'
 import { getHTMLString } from './getHTML'
-import { cId } from '../../shared/id'
+import { getMd5Name } from './crypto'
 
-export class Crawler2DFanInformation {
+export namespace Topic2DFan {
+    export function getSubjectID($: CheerioStatic): string {
+        const subjectHref: string = $('.span12>.thumbnail>.caption>a').attr('href')
+        let subjectID: string = ''
+        if (subjectHref) subjectID = getURLRouter(subjectHref, 'subjects')
+        return subjectID
+    }
+
+    export function getTopicID(URL: string): string {
+        return getURLRouter(URL, 'topics')
+    }
+}
+
+export async function getSubject(URL: string, add: object): Promise<IGameInformation | void> {
+    const urlTarget: string = URL
+
+    if (verifyURL(urlTarget, 'subjects')) {
+        try {
+            return await Subject2DFan.getInformation(URL, add)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    if (verifyURL(urlTarget, 'topics')) {
+        try {
+            const $: CheerioStatic = await getHTMLString(URL)
+            const subjectURL: string = `https://www.2dfan.com/subjects/${Topic2DFan.getSubjectID($)}`
+            await delay()
+            return await getSubject(subjectURL, add)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    throw `The URL is typed error of router:${urlTarget}`
+}
+
+export class Subject2DFan {
     public $: CheerioStatic
+
+    public rules: IGameInformation = {
+        _id: '',
+        name: '',
+        anotherName: '',
+        brand: [],
+        releaseDate: [],
+        painter: [],
+        voiceActor: [],
+        scriptwriter: [],
+        musician: [],
+        singer: [],
+        image: {
+            name: '',
+            type: '',
+            path: '',
+            filename: '',
+            size: '',
+        },
+        type: [],
+        web2dfan: {
+            subjectID: '',
+            topicID: '',
+            imageURL: '',
+        },
+        remark: '',
+        date: '',
+    }
 
     constructor($: CheerioStatic) {
         this.$ = $
@@ -18,29 +91,49 @@ export class Crawler2DFanInformation {
         return this.$('div.navbar.navbar-inner.block-header.no-border > h3').text()
     }
 
+    public static async getInformation(URL: string, add: object = {}): Promise<IGameInformation> {
+        try {
+            const $: CheerioStatic = await getHTMLString(URL)
+            const subject: Subject2DFan = new Subject2DFan($)
+            const rules: IGameInformation = merge(subject.rules, add)
+            let group: IGameInformation = merge(rules, subject.getGroup())
+            const date: string = format('y-M-d,H:m:s', new Date().getTime())
+            group = merge(group, {
+                date,
+                _id: cId(),
+                name: subject.getGameName(),
+                type: subject.getGameTypes(),
+                web2dfan: subject.get2DFan(URL),
+            })
+
+            group = await this.mergeDownloadedInformation(group)
+            return group
+        } catch (error) {
+            throw error
+        }
+    }
+
     public static async mergeDownloadedInformation(
         data: IGameInformation,
     ): Promise<IGameInformation> {
-        let group = data
+        let group: IGameInformation = data
+
+        const name: string = getMd5Name(group.name, group._id)
+        const url: string = group.web2dfan.imageURL || ''
 
         try {
             const downloadedInformation: IDownloadedInformation | undefined = await downloadImage({
-                name: group.name,
-                timestamp: group.timestamp,
-                url: group.web2dfan.imageURL || '',
-                path: Config.images.path,
+                name,
+                url,
             })
 
             if (downloadedInformation) {
                 group = merge(group, {
-                    image: {
-                        filename: downloadedInformation.filename,
-                        path: downloadedInformation.path,
-                    },
+                    image: downloadedInformation,
                 })
             }
         } catch (err) {
-            tip(err, 'error')
+            log('error', err)
         }
 
         return group
@@ -63,7 +156,7 @@ export class Crawler2DFanInformation {
         'TAG',
     ]
 
-    protected chooseType(type: string): string {
+    private chooseType(type: string): string {
         switch (type) {
             case '名称':
                 return 'name'
@@ -89,15 +182,15 @@ export class Crawler2DFanInformation {
         return 'other'
     }
 
-    protected stringToArray(data: string): Array<string> {
-        const typeArray = data.split('\n').map(val => {
+    private stringToArray(data: string): Array<string> {
+        const typeArray: Array<string> = data.split('\n').map(val => {
             return val.trim()
         })
         if (typeArray[0] === '') typeArray.shift()
         return typeArray
     }
 
-    protected stringToObject(
+    private stringToObject(
         data: string,
         allTypes: Array<string> = this.allTypes,
     ): IGameInformation {
@@ -128,35 +221,11 @@ export class Crawler2DFanInformation {
         })
         return totalData
     }
-}
-
-export class Subject2DFan extends Crawler2DFanInformation {
-    constructor($: CheerioStatic) {
-        super($)
-    }
-
-    public static async getInformation(
-        URL: string,
-        rules: IGameInformation,
-    ): Promise<IGameInformation> {
-        const $ = await getHTMLString(URL)
-        const subject: Subject2DFan = new Subject2DFan($)
-        let group: IGameInformation = merge(rules, subject.getGroup())
-        group = merge(group, {
-            _id: cId(),
-            name: subject.getGameName(),
-            type: subject.getGameTypes(),
-            web2dfan: subject.get2DFan(URL),
-            timestamp: new Date().getTime().toString(),
-        })
-        group = await this.mergeDownloadedInformation(group)
-        return group
-    }
 
     public getGameTypes(): Array<string> {
         const types: Array<string> = []
         this.$('.block-content.collapse.in.tags > a').map((index, val) => {
-            const type = val.children[0].data
+            const type: string | undefined = val.children[0].data
             if (type) types.push(type)
         })
         return types
@@ -204,11 +273,11 @@ export class Subject2DFan extends Crawler2DFanInformation {
         if (URL.split('www.2dfan.com/')[1].indexOf('subjects') !== 0) return undefined
         let imageURL: string | false = filter2DFanImageURL(this.getCoverImageURL())
         if (!imageURL) {
-            tip(`This URL is typed error:${imageURL}`, 'warn')
+            log('warn', `This URL is typed error:${imageURL}`)
             imageURL = ''
         }
         if (imageURL === 'filter') {
-            tip(`This image is filtered:${imageURL}`, 'warn')
+            log('warn', `This image is filtered:${imageURL}`)
             imageURL = 'filter'
         }
         return {
@@ -216,18 +285,5 @@ export class Subject2DFan extends Crawler2DFanInformation {
             subjectID: this.getSubjectID(URL),
             topicID: this.getTopicID(),
         }
-    }
-}
-
-export namespace Topic2DFan {
-    export function getSubjectID($: CheerioStatic): string {
-        const subjectHref: string = $('.span12>.thumbnail>.caption>a').attr('href')
-        let subjectID: string = ''
-        if (subjectHref) subjectID = getURLRouter(subjectHref, 'subjects')
-        return subjectID
-    }
-
-    export function getTopicID(URL: string): string {
-        return getURLRouter(URL, 'topics')
     }
 }

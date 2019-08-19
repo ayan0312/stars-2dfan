@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb'
+import { IDownloadedInformation } from './download'
 
 export interface IGameInformation {
     _id: string
@@ -11,47 +11,17 @@ export interface IGameInformation {
     scriptwriter: Array<string>
     musician: Array<string>
     singer: Array<string>
-    image: IImageFileInformation
+    image: IDownloadedInformation
     type: Array<string>
     web2dfan: I2DFan
     remark: string
-    timestamp: string
-}
-
-export interface IImageFileInformation {
-    path: string
-    filename: string
+    date: string
 }
 
 export interface I2DFan {
     subjectID: string
     imageURL?: string
     topicID?: string
-}
-
-export let rules: IGameInformation = {
-    _id: '',
-    name: '',
-    anotherName: '',
-    brand: [],
-    releaseDate: [],
-    painter: [],
-    voiceActor: [],
-    scriptwriter: [],
-    musician: [],
-    singer: [],
-    image: {
-        path: '',
-        filename: '',
-    },
-    type: [],
-    web2dfan: {
-        subjectID: '',
-        topicID: '',
-        imageURL: '',
-    },
-    remark: '',
-    timestamp: '0',
 }
 
 export interface ITotalInformations {
@@ -62,11 +32,12 @@ export interface ITotalInformations {
 export interface ITopicArticles {
     _id: string
     subject_id: string
+    date: string
     html?: Array<ITopicArticle>
 }
 
 export interface ITopicArticle {
-    page: string
-    images?: Array<IImageFileInformation>
+    page: number
+    images?: Array<IDownloadedInformation>
     content: Array<string>
 }

@@ -1,68 +1,71 @@
-import { download, mkdirSync, IDownloadedInformation } from './index'
-import { getImageType } from '../../utils/file'
-import { tip } from '../../utils/logs'
-import { getMd5Filename } from '../../shared/crypt'
+import { download, IDownloadedInformation } from './index'
+import { getImageType, mkdirSync } from '../../utils/file'
+import { log } from '../../logs'
+import Config from '../../config.json'
 
+/**
+ *
+ * @param name
+ * @param url
+ * @param path?
+ */
 export interface IDownloadImageTypes {
     name: string
     url: string
-    path: string
-    timestamp: string
+    path?: string
 }
 
 export async function downloadImage(
     data: IDownloadImageTypes,
 ): Promise<IDownloadedInformation | undefined> {
-    if (data.url === 'filter') {
-        return
-    }
-
+    if (data.url === undefined) return
+    if (data.url === 'filter') return
     if (data.url === '') {
-        tip(`No such image of file:${data.url}`, 'warn')
+        log('warn', `No such image of file:${data.url}`)
+        return
+    }
+    const path: string = data.path || Config.images.path
+    try {
+        mkdirSync(path)
+    } catch (error) {
+        log('error', error)
         return
     }
 
-    try {
-        mkdirSync(data.path)
-    } catch (error) {
-        throw error
-    }
-
-    const fileType = getImageType(data.url)
+    const fileType: string | false = getImageType(data.url)
     if (!fileType) {
-        throw `The image is errored of filename:${data.url}`
+        log('error', `The image is errored of filename:${data.url}`)
+        return
     }
-
-    const filename = getMd5Filename({
-        name: data.name,
-        timestamp: data.timestamp,
-    })
 
     try {
         const downloadInformation: IDownloadedInformation = await download({
-            filename: `${filename}.${fileType}`,
+            path,
+            name: data.name,
+            type: fileType,
             url: data.url,
-            path: data.path,
         })
 
         return downloadInformation
     } catch (err) {
-        tip(err, 'error')
-        return
+        log('error', err)
     }
 }
 
 export async function downloadImages(
-    URL: Array<IDownloadImageTypes>,
+    URLs: Array<IDownloadImageTypes>,
 ): Promise<Array<IDownloadedInformation | undefined>> {
-    if (URL.length === 0) return []
-    let infos: Array<IDownloadedInformation | undefined> = []
+    if (URLs.length === 0) return []
+    const donwloadedInformations: Array<IDownloadedInformation | undefined> = []
     let info: IDownloadedInformation | undefined
-    for (let i = 0; i < URL.length; i += 1) {
-        info = await downloadImage(URL[i])
-        console.log(info)
-        infos.push(info)
+    log('success', `Start(${URLs.length})------↓`)
+    for (let i = 0; i < URLs.length; i += 1) {
+        try {
+            info = await downloadImage(URLs[i])
+            donwloadedInformations.push(info)
+        } catch (error) {
+            log('error', `download parameter error:${URLs[i]}`)
+        }
     }
-
-    return infos
+    return donwloadedInformations
 }

@@ -1,0 +1,123 @@
+section.oneline {
+    width: 900px;
+    height: 230px;
+    margin: 0 0 25px 0;
+}
+
+section.oneline>figure {
+    height: 230px;
+    width: 650px;
+    float: left;
+}
+
+
+@media screen and (max-width: 999px) {
+    article>section.oneline {
+        width: 615px;
+    }
+
+    section.oneline>div.remark {
+        display: none;
+    }
+
+    section.oneline>figure>figcaption,
+    section.oneline>figure>blockquote.information,
+    section.oneline>figure>blockquote>p {
+        width: 400px;
+    }
+}
+
+@media screen and (max-width: 665px) {
+    article>section.oneline {
+        width: 283px;
+        height: auto;
+    }
+
+    section.oneline figure {
+        width: 100%;
+        height: auto;
+    }
+
+    section.oneline>figure>.background,
+    section.oneline>figure>figcaption,
+    section.oneline>figure>blockquote.information,
+    section.oneline>figure>blockquote>p {
+        float: none;
+        width: 268px;
+    }
+
+    article>section.oneline>div.remark {
+        margin-top:15px;
+        width: 283px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    article>section.oneline {
+        width: 90%;
+        height: auto;
+    }
+
+    section.oneline figure {
+        width: 100%;
+        height: auto;
+    }
+
+    section.oneline>figure>.background,
+    section.oneline>figure>figcaption,
+    section.oneline>figure>blockquote.information,
+    section.oneline>figure>blockquote>p {
+        float: none;
+        width: 95%;
+    }
+
+    article>section.oneline>div.remark {
+        margin-top:15px;
+        width: 95%;
+    }
+}
+
+section.oneline::after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+}
+
+
+section.oneline .background,
+section.oneline figcaption,
+section.oneline blockquote {
+    display: block;
+    float: left;
+}
+
+section.oneline blockquote.information {
+    width: 435px;
+    margin-left: 15px;
+}
+
+section.oneline blockquote>p {
+    width: 100%;
+    margin-bottom: 8px;
+    text-overflow: normal;
+    white-space: normal;
+}
+
+section.oneline figcaption {
+    width: 435px;
+    transition: none;
+    margin-left: 15px;
+    text-overflow: normal;
+    white-space: normal;
+    text-align: left;
+}
+
+section.oneline figcaption>a {}
+
+section.oneline>div.remark {
+    float: left;
+    width: 250px;
+    display: block;
+}

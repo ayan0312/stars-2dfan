@@ -1,5 +1,5 @@
 import inquirer from 'inquirer'
-import { logStats, tip } from '../../utils/logs'
+import { logStats, log } from '../../logs'
 import { IGameInformation, ITotalInformations } from '../../core/data'
 import loadPage from '../../core/loadPage'
 import { Mongodb } from '../../core/models/mongodb'
@@ -13,21 +13,23 @@ const url: inquirer.QuestionCollection = [
         message: '输入2DFan网站地址',
         async validate(URL: any): Promise<boolean> {
             try {
-                const data: ITotalInformations = await loadPage(URL, '')
+                const data: ITotalInformations | void = await loadPage(URL, '')
 
-                logStats({
-                    data: data.subject,
-                    name: 'Data',
-                    tip: 'Process',
-                    type: 'success',
-                })
+                if (data) {
+                    logStats({
+                        data: data.subject,
+                        name: 'Data',
+                        tip: 'Process',
+                    })
 
-                info = data
+                    info = data
+                }else{
+                    return false
+                }
             } catch (err) {
-                tip(err, 'error')
+                log('error', err)
                 return false
             }
-
             return true
         },
     },
@@ -42,7 +44,7 @@ const url: inquirer.QuestionCollection = [
 ]
 
 async function insertAll(data: ITotalInformations): Promise<void> {
-    if (info === undefined) return
+    if (data === undefined) return
     const { subject, topic } = data
     const subjects: Mongodb = await Mongodb.connection('subjects')
     subjects.insert(subject)

@@ -8,8 +8,8 @@ import {
 import Config from '../../config.json'
 
 export class Mongodb {
-    private db: Db
-    private collectionName: string
+    public db: Db
+    public collectionName: string
 
     constructor(db: Db, collectionName: string) {
         this.db = db

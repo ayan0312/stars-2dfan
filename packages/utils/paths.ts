@@ -4,7 +4,7 @@ const root = path.resolve(__dirname, '../..')
 const packages = path.resolve(root, 'packages')
 const cli = path.resolve(packages, 'cli')
 const core = path.resolve(packages, 'core')
-const local = path.resolve(packages, 'local')
+const log = path.resolve(packages, 'log')
 const server = path.resolve(packages, 'server')
 const shared = path.resolve(packages, 'shared')
 
@@ -13,7 +13,7 @@ export default {
     packages,
     cli,
     core,
-    local,
+    log,
     server,
     shared,
 }
