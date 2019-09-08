@@ -152,8 +152,8 @@ yarn start
 yarn server //localhost:3000
 ```
 
-![](/resources/subjects.jpg)
-![](/resources/topic.jpg)
+![Image text](/resources/subjects.jpg)
+![Image text](/resources/topic.jpg)
 
 # License
 
