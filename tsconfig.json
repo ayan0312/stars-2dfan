@@ -15,7 +15,7 @@
     "node_modules"
   ],
   "include": [
-    "packages/**/*",
+    "lib/**/*",
     "test/**/*"
   ]
 }

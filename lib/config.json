@@ -1,0 +1,18 @@
+{
+    "Cookie": "bdshare_firstime=1566648750201; remember_me_token=IlpOakNYS1E3RjlHMUJWeGVNMnNGIg%3D%3D--de03d09b618205e547fa5dbad4fd0be9de1c4940; Hm_lvt_79251201618e9337c1169fef9b3e4786=1567259667,1567259752,1567347102,1567517432; _project_hgc_session=eDhZdGtyRWNOOElwdlU1M1hPY2RFRmtkVmMrTTNvaTExZkNJS1VHazU1WW9PRUNpNDFObEFNaGQwRHNsNUFVVk5KZ3JpM0lkaWhPc3pjeDZPa0k1SFlPSUpEQ0dyL3QyMVZIZWxuS1EvNmE1OVUyQ3NmTFladmZyUHg5YnAwMWhZNXFPMFhOeWVUQVVla1ZsSGRVQnJEYXBYZ0E4c0RqUFp2TE93aUNtR3p5dUh4THc3enN1ak1CendwVjYwZk1ULS15MEE3MGhmSUJNRVAxYk0xajN2dVNBPT0%3D--a456c00af54729f627639f83d75569eb19873e27; Hm_lpvt_79251201618e9337c1169fef9b3e4786=1567517598",
+    "images": {
+        "path": "g:/galgame/stars-2dfan.images/"
+    },
+    "download": {
+        "filters": [
+            "https://img.2dfan.com/package.png"
+        ]
+    },
+    "server":{
+        "imagesPath":"/assets/images/"
+    },
+    "mongodb":{
+        "connection":"stars-2dfan",
+        "localhost":"mongodb://localhost:27017/"
+    }
+}

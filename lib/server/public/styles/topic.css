@@ -1,0 +1,58 @@
+.topic {
+    position: fixed;
+    width: 800px;
+    z-index: 103;
+    border-radius: 5px;
+    height: 80%;
+    padding: 10px;
+    border: 20px solid #fff;
+    overflow: auto;
+    background: #fff;
+}
+
+.topic-content p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 2em;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.topic-content img {
+    display: block;
+    margin: 0 auto;
+}
+
+.pre_load {
+    text-align: center;
+    line-height: 100%;
+    font-size: 16px;
+}
+
+.topic::-webkit-scrollbar {
+    width: 3px;
+}
+
+.topic::-webkit-scrollbar-track-piece {
+    background-color: #dfdfdf;
+}
+
+/* 滚动条的内层滑轨背景颜色 */
+
+.topic::-webkit-scrollbar-track {
+    display: none;
+}
+
+/* 滚动条的外层滑轨背景颜色 */
+
+.topic::-webkit-scrollbar-thumb {
+    background-color: #08c;
+}
+
+/* 滚动条的内层滑块颜色 */
+
+.topic::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* 滑轨两头的监听按钮颜色 */
