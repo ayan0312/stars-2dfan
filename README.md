@@ -3,81 +3,146 @@
 ```
 net start mongodb
 yarn start
-yarn cli -h
+```
+# server
+```
+yarn server //localhost:3000
 ```
 
+# subject
 ```
 {
-    "_id" : ObjectId("5d557c307fc2122fd4ffc550"),
-    "name" : "封緘のグラセスタ",
-    "anotherName" : [ 
-        "封缄之都古拉塞斯塔"
-    ],
+    "_id" : ObjectId("f76e52c80000000000000000"),
+    "name" : "堕ちていく聖戦使ルナティックエンジェルズ",
+    "anotherName" : "",
     "brand" : [ 
-        "エウシュリー"
+        "シルキーズSAKURA"
     ],
     "releaseDate" : [ 
-        "2018-11-30"
+        "2015-10-30"
     ],
     "painter" : [ 
-        "やくり", 
-        "夜ノみつき", 
-        "うろ", 
-        "よしだたくま"
+        "ななお"
     ],
     "voiceActor" : [ 
-        "谷口ケイ", 
-        "あかしゆき", 
-        "奏雨", 
-        "黒瀬鷹", 
-        "鞠男.net", 
-        "風花ましろ", 
-        "谷根千", 
-        "成宮水彩", 
-        "でんちゅー", 
-        "花園めい", 
+        "八ッ橋きなこ", 
+        "君島りさ", 
         "綾音まこ", 
-        "ブルンドゥク・クビレスキー", 
-        "藤咲ウサ", 
-        "遥そら", 
-        "月白まひる", 
-        "金森ひよこ", 
-        "荒川虎鉄", 
-        "花見あいり", 
-        "月野きいろ", 
-        "遠野そよぎ"
+        "八尋まみ"
     ],
     "scriptwriter" : [ 
-
-        "花咲樹木", 
-        "若葉祥慶", 
-        "八雲意宇"
+        "中野一人"
     ],
-    "musician" : [ 
-        "Emotional Union"
-    ],
-    "singer" : [ 
-        "Faylan"
-    ],
+    "musician" : [],
+    "singer" : [],
     "image" : {
-        "filename" : "29dd3b82f4cb7dc02c73455429cdba46.jpg",
-        "path" : "g:/open/temp_images/"
+        "path" : "g:/galgame/stars-2dfan.images/",
+        "name" : "62b83b10b092be971fe8a2ad9e0a609c",
+        "type" : "jpg",
+        "size" : "91708",
+        "filename" : "g:/galgame/stars-2dfan.images/62b83b10b092be971fe8a2ad9e0a609c.jpg"
     },
     "type" : [ 
-        "RPG", 
-        "架空世界", 
-        "战斗", 
-        "汉化"
+        "ADV", 
+        "变身", 
+        "过激", 
+        "催眠"
     ],
     "web2dfan" : {
-        "imageURL" : "https://img.2dfan.com/uploads/subjects/packages/897c2c444a64406e88951cf7d8b82ec8.jpg",
-        "subjectID" : "7726",
-        "topicID" : "8792"
+        "imageURL" : "https://img.2dfan.com/old_source/1510/2958_1.jpg",
+        "subjectID" : "2943",
+        "topicID" : "2943"
     },
-    "timestamp" : "1565883436322"
+    "remark" : "",
+    "date" : "2019-9-3,22:01:38"
 }
 ```
-
+# topic
+```
+{
+    "_id" : ObjectId("f76e5cef0000000000000000"),
+    "date" : "2019-9-3,22:01:40",
+    "subject_id" : ObjectId("f76e52c80000000000000000"),
+    "html" : [ 
+        {
+            "page" : 1,
+            "images" : [ 
+                {
+                    "path" : "g:/galgame/stars-2dfan.images/",
+                    "name" : "eyJpbmRleCI6MCwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoxfQ==",
+                    "type" : "jpg",
+                    "size" : "23358",
+                    "filename" : "g:/galgame/stars-2dfan.images/eyJpbmRleCI6MCwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoxfQ==.jpg"
+                }, 
+                {
+                    "path" : "g:/galgame/stars-2dfan.images/",
+                    "name" : "eyJpbmRleCI6MSwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoxfQ==",
+                    "type" : "jpg",
+                    "size" : "25427",
+                    "filename" : "g:/galgame/stars-2dfan.images/eyJpbmRleCI6MSwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoxfQ==.jpg"
+                }
+            ],
+            "content" : [ 
+                "<p>...</p>",
+                "<p>...</p>",
+                "<img src=\"/assets/images/eyJpbmRleCI6MiwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoyfQ==.jpg\" alt>"
+            ]
+        }, 
+        {
+            "page" : 2,
+            "images" : [ 
+                {
+                    "path" : "g:/galgame/stars-2dfan.images/",
+                    "name" : "eyJpbmRleCI6MCwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoyfQ==",
+                    "type" : "jpg",
+                    "size" : "19942",
+                    "filename" : "g:/galgame/stars-2dfan.images/eyJpbmRleCI6MCwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoyfQ==.jpg"
+                }, 
+                {
+                    "path" : "g:/galgame/stars-2dfan.images/",
+                    "name" : "eyJpbmRleCI6MSwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoyfQ==",
+                    "type" : "jpg",
+                    "size" : "23033",
+                    "filename" : "g:/galgame/stars-2dfan.images/eyJpbmRleCI6MSwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoyfQ==.jpg"
+                }, 
+                {
+                    "path" : "g:/galgame/stars-2dfan.images/",
+                    "name" : "eyJpbmRleCI6MiwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoyfQ==",
+                    "type" : "jpg",
+                    "size" : "316441",
+                    "filename" : "g:/galgame/stars-2dfan.images/eyJpbmRleCI6MiwidG9waWNJRCI6IjI5NDMiLCJwYWdlIjoyfQ==.jpg"
+                }
+            ],
+            "content" : [ 
+                "<p>...</p>",
+                "<p>...</p>"
+            ]
+        }
+    ]
+}
+```
+# config
+`lib/config.json`
+```
+{
+    "Cookie": "...",
+    "images": {
+        "path": "g:/galgame/stars-2dfan.images/"
+    },
+    "download": {
+        "filters": [
+            "https://img.2dfan.com/package.png"
+        ]
+    },
+    "server":{
+        "imagesPath":"/assets/images/"
+    },
+    "mongodb":{
+        "connection":"stars-2dfan",
+        "localhost":"mongodb://localhost:27017/"
+    }
+}
+```
 # License
 
 MIT
