@@ -4,12 +4,9 @@
 net start mongodb
 yarn start
 ```
-# server
-```
-yarn server //localhost:3000
-```
 
-# subject
+# Subject
+
 ```
 {
     "_id" : ObjectId("f76e52c80000000000000000"),
@@ -57,7 +54,9 @@ yarn server //localhost:3000
     "date" : "2019-9-3,22:01:38"
 }
 ```
-# topic
+
+# Topic
+
 ```
 {
     "_id" : ObjectId("f76e5cef0000000000000000"),
@@ -121,8 +120,11 @@ yarn server //localhost:3000
     ]
 }
 ```
-# config
+
+# Config
+
 `lib/config.json`
+
 ```
 {
     "Cookie": "...",
@@ -143,6 +145,16 @@ yarn server //localhost:3000
     }
 }
 ```
+
+# Server
+
+```
+yarn server //localhost:3000
+```
+
+![](/resources/subjects.jpg)
+![](/resources/topic.jpg)
+
 # License
 
 MIT
