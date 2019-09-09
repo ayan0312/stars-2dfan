@@ -218,11 +218,14 @@ textarea {
 
 nav {
     padding: 20px 0 20px 0;
+    background: #f0f3f5;
+}
+
+nav>div {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background:#f0f3f5;
 }
 
 input[type|="text"] {

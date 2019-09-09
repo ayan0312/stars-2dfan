@@ -1,9 +1,7 @@
-import { getSubjectsPages, num } from '../models/page'
+import { getSubjectsPages, num, getAllPage } from '../models/page'
 import express from 'express'
 
-export default function () {
-    const find = {}
-    const sort = -1
+export default function (find: object = {}, sort: number = -1) {
     return async (req: express.Request, res: express.Response) => {
         let page: number | string = req.params.page || 1
         if (typeof page !== 'number') page = parseInt(page, 10)

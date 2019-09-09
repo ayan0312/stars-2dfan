@@ -9,20 +9,21 @@ export async function getSubjectsPages(
     num: number,
     sort: number = -1,
 ): Promise<Array<object> | null> {
+    let pageCount: number = await getAllPage()
+    let thePage = page
+    if (sort === -1) {
+        thePage = Math.ceil(pageCount / num) - thePage + 1
+    }
+
     const subjects: Mongodb = await getSubjects()
-    const sk = (page - 1) * num
+    const sk = (thePage - 1) * num
     const data: Array<object> | null = await subjects.db
         .collection(subjects.collectionName)
         .find(find)
         .skip(sk)
         .limit(num)
-        .sort({ _id: sort })
         .toArray()
     return data
-}
-
-export function withoutPage(){
-    
 }
 
 export async function getAllPage(): Promise<number> {
