@@ -10,25 +10,22 @@ yarn start
 ```
 {
     "_id" : ObjectId("f76e52c80000000000000000"),
-    "name" : "堕ちていく聖戦使ルナティックエンジェルズ",
+    "name" : "xxxxx",
     "anotherName" : "",
     "brand" : [ 
-        "シルキーズSAKURA"
+        "xxx"
     ],
     "releaseDate" : [ 
         "2015-10-30"
     ],
     "painter" : [ 
-        "ななお"
+        "xxx"
     ],
     "voiceActor" : [ 
-        "八ッ橋きなこ", 
-        "君島りさ", 
-        "綾音まこ", 
-        "八尋まみ"
+        "xxx"
     ],
     "scriptwriter" : [ 
-        "中野一人"
+        "xxx"
     ],
     "musician" : [],
     "singer" : [],
@@ -40,10 +37,7 @@ yarn start
         "filename" : "g:/galgame/stars-2dfan.images/62b83b10b092be971fe8a2ad9e0a609c.jpg"
     },
     "type" : [ 
-        "ADV", 
-        "变身", 
-        "过激", 
-        "催眠"
+        "ADV"
     ],
     "web2dfan" : {
         "imageURL" : "https://img.2dfan.com/old_source/1510/2958_1.jpg",
