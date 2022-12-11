@@ -72,7 +72,7 @@
     "cheerio": "^1.0.0-rc.3",
     "commander": "^3.0.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "inquirer": "^6.5.0",
     "log4js": "^5.0.0",
     "mongodb": "^3.3.0-beta2",
